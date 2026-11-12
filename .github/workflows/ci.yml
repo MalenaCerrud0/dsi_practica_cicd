@@ -11,7 +11,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
 
@@ -46,3 +46,6 @@ jobs:
             docker push $IMG:latest
             docker push $IMG:$SHORT_SHA
           done
+      
+      - name: Disparar despliegue en Render
+        run: curl -fsS "${{ secrets.RENDER_DEPLOY_HOOK }}"
